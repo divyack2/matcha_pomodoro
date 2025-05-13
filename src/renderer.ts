@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const timerDisplay = document.getElementById('timer') as HTMLElement;
   const toggleBtn = document.getElementById('toggle') as HTMLImageElement;
+  const resetBtn = document.getElementById('reset') as HTMLImageElement;
   const cupImg = document.getElementById('cup') as HTMLImageElement;
 
   function updateCupImage() {
@@ -153,6 +154,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
     timerDisplay.textContent = `${minutes}:${seconds}`;
   }
+
+  function resetTimer() {
+    if (interval) {
+        clearInterval(interval);
+        interval = null;
+    }
+
+    running = false;
+    toggleBtn.src = './assets/play.svg';
+
+    timeLeft = mode === 'work' ? WORK_TIME : BREAK_TIME;
+    lastCupNum = 0;
+    cupImg.src = mode === 'work' ? './assets/cup1.svg' : './assets/cup5.svg';
+    updateDisplay();
+  }
+
 
   function startTimer() {
     if (interval) return;
@@ -206,6 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleBtn.addEventListener('click', () => {
     running ? pauseTimer() : startTimer();
   });
+
+  resetBtn.addEventListener('click', resetTimer);
 
   updateDisplay();
 });
