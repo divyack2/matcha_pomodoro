@@ -5,6 +5,8 @@ body {
   max-width: 38rem;
   padding: 1rem;
   -webkit-app-region: drag;
+  transition: background-color 0.8s ease;
+  background-color: #999999;
 }
 
 .nodrag {
@@ -20,7 +22,7 @@ body {
 #cup_container {
   display: flex;
   align-items: center; /* vertical alignment */
-  justify-content: center; /* optional: center the row itself */
+  justify-content: center;
   margin-top: 10px;
 }
 
@@ -32,7 +34,7 @@ body {
 #timer-row {
   display: flex;
   align-items: center; /* vertical alignment */
-  justify-content: center; /* optional: center the row itself */
+  justify-content: center;
   gap: 12px; /* space between text and icon */
   margin-top: 10px;
 }
