@@ -1,0 +1,12 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: auto;
+  max-width: 38rem;
+  padding: 2rem;
+  -webkit-app-region: drag;
+}
+
+.nodrag {
+  -webkit-app-region: no-drag; /* Override for interactive elements */
+}

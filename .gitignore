@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+
+# Build output
+out/
+dist/
+build/
+.temp/
+.cache/
+
+# Electron Forge artifacts
+*.dmg
+*.exe
+*.zip
+*.AppImage
+*.asar
+*.app
+*.snap
+*.msi
+*.deb
+
+# macOS system files
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# Env / credentials
+.env
+.env.*.local
+
+# Vite cache
+.vite/
