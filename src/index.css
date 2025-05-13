@@ -6,7 +6,7 @@ body {
   padding: 1rem;
   -webkit-app-region: drag;
   transition: background-color 0.8s ease;
-  background-color: #999999;
+  background-color: #639274;
 }
 
 .nodrag {
@@ -35,7 +35,7 @@ body {
   display: flex;
   align-items: center; /* vertical alignment */
   justify-content: center;
-  gap: 12px; /* space between text and icon */
+  gap: 10px; /* space between text and icon */
   margin-top: 10px;
 }
 
@@ -44,6 +44,6 @@ body {
 }
 
 #toggle, #reset{
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
 }

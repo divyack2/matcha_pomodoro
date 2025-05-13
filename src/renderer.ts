@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Transition to break
           mode = 'break';
           timeLeft = BREAK_TIME;
-          document.body.style.backgroundColor = '#ffffff';
+          document.body.style.backgroundColor = '#A8E6A3';
           cupImg.src = './assets/cup5.svg';
           updateDisplay();
           startTimer();
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Transition back to work
           mode = 'work';
           timeLeft = WORK_TIME;
-          document.body.style.backgroundColor = '#999999';
+          document.body.style.backgroundColor = '#639274';
           lastCupNum = 0;
           cupImg.src = './assets/cup1.svg';
           updateDisplay();
