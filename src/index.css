@@ -3,10 +3,45 @@ body {
     Arial, sans-serif;
   margin: auto;
   max-width: 38rem;
-  padding: 2rem;
+  padding: 1rem;
   -webkit-app-region: drag;
 }
 
 .nodrag {
   -webkit-app-region: no-drag; /* Override for interactive elements */
+}
+
+#taskbar-btn {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+#cup_container {
+  display: flex;
+  align-items: center; /* vertical alignment */
+  justify-content: center; /* optional: center the row itself */
+  margin-top: 10px;
+}
+
+#cup {
+  width: 90px;
+  height: 90px;
+}
+
+#timer-row {
+  display: flex;
+  align-items: center; /* vertical alignment */
+  justify-content: center; /* optional: center the row itself */
+  gap: 12px; /* space between text and icon */
+  margin-top: 10px;
+}
+
+#timer {
+  margin: 2px;
+}
+
+#toggle {
+  width: 40px;
+  height: 40px;
 }

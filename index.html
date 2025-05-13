@@ -2,16 +2,23 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <title>matcha pomodoro</title>
 
   </head>
   <div id="header">
-    <img src="close.png" class="nodrag" onclick="windowControls.close()" />
-    <img src="minimize.png" class="nodrag" onclick="windowControls.minimize()" />
+    <img src="assets/close.svg" class="nodrag" id="taskbar-btn" onclick="windowControls.close()" />
+    <img src="assets/minimize.svg" class="nodrag" id="taskbar-btn" onclick="windowControls.minimize()" />
   </div>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <div id="cup_container">
+      <img src="assets/cup1.svg" id="cup" />
+    </div>
+    
+    <div id="timer-row">
+      <h2 id="timer">25:00</h2>
+      <img src="assets/play.svg" id="toggle" class="nodrag" />
+    </div>
+
     <script type="module" src="/src/renderer.ts"></script>
   </body>
 </html>

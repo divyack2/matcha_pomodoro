@@ -28,4 +28,64 @@
 
 import './index.css';
 
+document.addEventListener('DOMContentLoaded', () => {
+    const FULL_TIME = 25 * 60; // 1500 seconds
+    let timeLeft = FULL_TIME;
+    let interval: NodeJS.Timeout | null = null;
+    let running = false;
+
+    const timerDisplay = document.getElementById('timer') as HTMLElement;
+    const toggleBtn = document.getElementById('toggle') as HTMLImageElement;
+    const cupImg = document.getElementById('cup') as HTMLImageElement;
+
+    function updateCupImage() {
+        const elapsed = FULL_TIME - timeLeft;
+        const phase = Math.floor(elapsed / (5 * 60)) + 1; // 1 to 5
+        const cupNum = Math.min(phase, 5);
+        cupImg.src = `./assets/cup${cupNum}.svg`;
+    }
+
+    function updateDisplay() {
+        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (timeLeft % 60).toString().padStart(2, '0');
+        timerDisplay.textContent = `${minutes}:${seconds}`;
+    }
+
+    function startTimer() {
+        if (interval) return;
+
+        interval = setInterval(() => {
+        if (timeLeft > 0) {
+            timeLeft--;
+            updateDisplay();
+            updateCupImage(); 
+        } else {
+            clearInterval(interval!);
+            interval = null;
+            running = false;
+            toggleBtn.src = './assets/play.svg';
+        }
+        }, 1000);
+
+        running = true;
+        toggleBtn.src = './assets/pause.svg';
+    }
+
+    function pauseTimer() {
+        if (interval) {
+        clearInterval(interval);
+        interval = null;
+        }
+
+        running = false;
+        toggleBtn.src = './assets/play.svg';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        running ? pauseTimer() : startTimer();
+    });
+
+    updateDisplay();
+});
+
 console.log('👋 This message is being logged by "renderer.ts", included via Vite');
