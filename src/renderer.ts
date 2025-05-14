@@ -33,10 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let mode: Mode = 'work';
 
     const WORK_TIME = 25 * 60;     // 25 minutes
-    const BREAK_TIME = 5 * 60;     // 5 minutes
+    const BREAK_TIME = 5* 60;     // 5 minutes
 
     let timeLeft = WORK_TIME;
     let interval: NodeJS.Timeout | null = null;
+    let idleCupInterval: NodeJS.Timeout | null = null;
     let running = false;
     let lastCupNum = 0;
 
@@ -45,21 +46,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetBtn = document.getElementById('reset') as HTMLImageElement;
     const cupImg = document.getElementById('cup') as HTMLImageElement;
 
-    function refillCupAnimation() {
+    function startCupIdleAnimation(cupNum: number) {
+        if (idleCupInterval) clearInterval(idleCupInterval);
+
+        let isAlt = false;
+
+        idleCupInterval = setInterval(() => {
+            const suffix = isAlt ? '-alt' : '';
+            cupImg.src = `./assets/cup${cupNum}${suffix}.svg`;
+            isAlt = !isAlt;
+        }, 1750);
+    }
+
+    function stopCupIdleAnimation() {
+        if (idleCupInterval) {
+            clearInterval(idleCupInterval);
+            idleCupInterval = null;
+        }
+    }
+
+    function refillCupAnimation(onComplete: () => void) {
+        stopCupIdleAnimation(); // prevent overlap
+
         const cupFrames = [5, 4, 3, 2, 1];
         let i = 0;
 
-        const animationInterval = setInterval(() => {
+        // Delays in ms for each frame
+        const delays = [100, 150, 200, 400, 500];
+
+        function nextFrame() {
             if (i >= cupFrames.length) {
-            clearInterval(animationInterval);
-            return;
+                lastCupNum = 1;
+                startCupIdleAnimation(1); // restart idle
+                onComplete();
+                return;
             }
 
-            cupImg.src = `./assets/cup${cupFrames[i]}.svg`;
-            lastCupNum = cupFrames[i]; // keep state in sync
+            const cupNum = cupFrames[i];
+            cupImg.src = `./assets/cup${cupNum}.svg`;
+            lastCupNum = cupNum;
+
+            setTimeout(nextFrame, delays[i]);
             i++;
-        }, 100); // 150ms delay between frames
-    }
+        }
+
+        nextFrame(); // start the animation
+        }
 
 
     function updateCupImage() {
@@ -70,8 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const cupNum = Math.min(phase, 4);
 
         if (cupNum !== lastCupNum) {
-        cupImg.src = `./assets/cup${cupNum}.svg`;
-        lastCupNum = cupNum;
+            cupImg.src = `./assets/cup${cupNum}.svg`;
+            lastCupNum = cupNum;
+            startCupIdleAnimation(cupNum);
         }
     }
 
@@ -115,7 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Transition to break
                 mode = 'break';
                 timeLeft = BREAK_TIME;
-                document.body.style.backgroundColor = '#A8E6A3';
+                document.body.style.backgroundColor = '#98CD95';
+                stopCupIdleAnimation();
                 cupImg.src = './assets/cup5.svg';
                 updateDisplay();
                 startTimer();
@@ -126,9 +160,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.style.backgroundColor = '#639274';
 
                 lastCupNum = 0;
-                refillCupAnimation();
                 updateDisplay();
-                startTimer();
+                
+                refillCupAnimation(() => {
+                    startTimer(); // start only after refill finishes
+                });
             }
         }
         }, 1000);

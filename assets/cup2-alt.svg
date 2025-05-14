@@ -63,6 +63,6 @@
 <rect x="240" y="386" width="30" height="30" transform="rotate(180 240 386)" fill="#AB6F67"/>
 <rect x="210" y="386" width="30" height="30" transform="rotate(180 210 386)" fill="#AB6F67"/>
 <rect x="90" y="266" width="30" height="30" transform="rotate(180 90 266)" fill="#77B777"/>
-<rect x="120" y="180" width="30" height="30" transform="rotate(180 120 180)" fill="#416956"/>
-<rect x="225" y="150" width="30" height="30" transform="rotate(180 225 150)" fill="#416956"/>
+<rect x="120" y="150" width="30" height="30" transform="rotate(180 120 150)" fill="#416956"/>
+<rect x="225" y="180" width="30" height="30" transform="rotate(180 225 180)" fill="#416956"/>
 </svg>
