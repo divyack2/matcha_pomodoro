@@ -28,203 +28,130 @@
 
 import './index.css';
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     type Mode = 'work' | 'break';
-//     let mode: Mode = 'work';
-
-//     const WORK_TIME = 60;      // 1 minute for testing
-//     const BREAK_TIME = 30;     // 30 seconds for testing
-
-//     let timeLeft = WORK_TIME;
-//     let interval: NodeJS.Timeout | null = null;
-//     let running = false;
-//     let lastCupNum = 0;
-
-//     const timerDisplay = document.getElementById('timer') as HTMLElement;
-//     const toggleBtn = document.getElementById('toggle') as HTMLImageElement;
-//     const cupImg = document.getElementById('cup') as HTMLImageElement;
-
-//     function updateCupImage() {
-//         if (mode !== 'work') return;
-
-//         const elapsed = WORK_TIME - timeLeft;
-//         const phase = Math.floor(elapsed / (WORK_TIME / 4)) + 1; // 1 to 4
-//         const cupNum = Math.min(phase, 4); // only go up to cup4
-
-//         if (cupNum !== lastCupNum) {
-//             cupImg.src = `./assets/cup${cupNum}.svg`;
-//             lastCupNum = cupNum;
-//         }
-//     }
-
-//     function updateDisplay() {
-//         const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-//         const seconds = (timeLeft % 60).toString().padStart(2, '0');
-//         timerDisplay.textContent = `${minutes}:${seconds}`;
-//     }
-
-//     function startTimer() {
-//         if (interval) return;
-
-//         interval = setInterval(() => {
-//         if (timeLeft > 0) {
-//             timeLeft--;
-//             updateDisplay();
-//             updateCupImage();
-//         } else {
-//             clearInterval(interval!);
-//             interval = null;
-//             running = false;
-//             toggleBtn.src = './assets/play.svg';
-
-//             if (mode === 'work') {
-//                 // Transition to break
-//                 mode = 'break';
-//                 timeLeft = BREAK_TIME;
-//                 document.body.style.backgroundColor = '#ffffff';
-//                 cupImg.src = './assets/cup5.svg';
-//                 updateDisplay();
-//                 startTimer();
-//             } else {
-//                 // Transition back to work
-//                 mode = 'work';
-//                 timeLeft = WORK_TIME;
-//                 document.body.style.backgroundColor = '#666666';
-//                 lastCupNum = 0;
-//                 cupImg.src = './assets/cup1.svg';
-//                 updateDisplay();
-//                 startTimer();
-//             }
-//         }
-//         }, 1000);
-
-//         running = true;
-//         toggleBtn.src = './assets/pause.svg';
-//     }
-
-//     function pauseTimer() {
-//         if (interval) {
-//             clearInterval(interval);
-//             interval = null;
-//         }
-
-//         running = false;
-//         toggleBtn.src = './assets/play.svg';
-//     }
-
-//     toggleBtn.addEventListener('click', () => {
-//         running ? pauseTimer() : startTimer();
-//     });
-
-//     updateDisplay();
-// });
-
 document.addEventListener('DOMContentLoaded', () => {
-  type Mode = 'work' | 'break';
-  let mode: Mode = 'work';
+    type Mode = 'work' | 'break';
+    let mode: Mode = 'work';
 
-  const WORK_TIME = 25 * 60;     // 25 minutes
-  const BREAK_TIME = 5 * 60;     // 5 minutes
+    const WORK_TIME = 25 * 60;     // 25 minutes
+    const BREAK_TIME = 5 * 60;     // 5 minutes
 
-  let timeLeft = WORK_TIME;
-  let interval: NodeJS.Timeout | null = null;
-  let running = false;
-  let lastCupNum = 0;
+    let timeLeft = WORK_TIME;
+    let interval: NodeJS.Timeout | null = null;
+    let running = false;
+    let lastCupNum = 0;
 
-  const timerDisplay = document.getElementById('timer') as HTMLElement;
-  const toggleBtn = document.getElementById('toggle') as HTMLImageElement;
-  const resetBtn = document.getElementById('reset') as HTMLImageElement;
-  const cupImg = document.getElementById('cup') as HTMLImageElement;
+    const timerDisplay = document.getElementById('timer') as HTMLElement;
+    const toggleBtn = document.getElementById('toggle') as HTMLImageElement;
+    const resetBtn = document.getElementById('reset') as HTMLImageElement;
+    const cupImg = document.getElementById('cup') as HTMLImageElement;
 
-  function updateCupImage() {
-    if (mode !== 'work') return;
+    function refillCupAnimation() {
+        const cupFrames = [5, 4, 3, 2, 1];
+        let i = 0;
 
-    const elapsed = WORK_TIME - timeLeft;
-    const phase = Math.floor(elapsed / (WORK_TIME / 4)) + 1; // 1 to 4
-    const cupNum = Math.min(phase, 4);
+        const animationInterval = setInterval(() => {
+            if (i >= cupFrames.length) {
+            clearInterval(animationInterval);
+            return;
+            }
 
-    if (cupNum !== lastCupNum) {
-      cupImg.src = `./assets/cup${cupNum}.svg`;
-      lastCupNum = cupNum;
-    }
-  }
-
-  function updateDisplay() {
-    const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-    const seconds = (timeLeft % 60).toString().padStart(2, '0');
-    timerDisplay.textContent = `${minutes}:${seconds}`;
-  }
-
-  function resetTimer() {
-    if (interval) {
-        clearInterval(interval);
-        interval = null;
+            cupImg.src = `./assets/cup${cupFrames[i]}.svg`;
+            lastCupNum = cupFrames[i]; // keep state in sync
+            i++;
+        }, 100); // 150ms delay between frames
     }
 
-    running = false;
-    toggleBtn.src = './assets/play.svg';
 
-    timeLeft = mode === 'work' ? WORK_TIME : BREAK_TIME;
-    lastCupNum = 0;
-    cupImg.src = mode === 'work' ? './assets/cup1.svg' : './assets/cup5.svg';
-    updateDisplay();
-  }
+    function updateCupImage() {
+        if (mode !== 'work') return;
 
+        const elapsed = WORK_TIME - timeLeft;
+        const phase = Math.floor(elapsed / (WORK_TIME / 4)) + 1; // 1 to 4
+        const cupNum = Math.min(phase, 4);
 
-  function startTimer() {
-    if (interval) return;
+        if (cupNum !== lastCupNum) {
+        cupImg.src = `./assets/cup${cupNum}.svg`;
+        lastCupNum = cupNum;
+        }
+    }
 
-    interval = setInterval(() => {
-      if (timeLeft > 0) {
-        timeLeft--;
-        updateDisplay();
-        updateCupImage();
-      } else {
-        clearInterval(interval!);
-        interval = null;
+    function updateDisplay() {
+        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (timeLeft % 60).toString().padStart(2, '0');
+        timerDisplay.textContent = `${minutes}:${seconds}`;
+    }
+
+    function resetTimer() {
+        if (interval) {
+            clearInterval(interval);
+            interval = null;
+        }
+
         running = false;
         toggleBtn.src = './assets/play.svg';
 
-        if (mode === 'work') {
-          // Transition to break
-          mode = 'break';
-          timeLeft = BREAK_TIME;
-          document.body.style.backgroundColor = '#A8E6A3';
-          cupImg.src = './assets/cup5.svg';
-          updateDisplay();
-          startTimer();
-        } else {
-          // Transition back to work
-          mode = 'work';
-          timeLeft = WORK_TIME;
-          document.body.style.backgroundColor = '#639274';
-          lastCupNum = 0;
-          cupImg.src = './assets/cup1.svg';
-          updateDisplay();
-          startTimer();
-        }
-      }
-    }, 1000);
-
-    running = true;
-    toggleBtn.src = './assets/pause.svg';
-  }
-
-  function pauseTimer() {
-    if (interval) {
-      clearInterval(interval);
-      interval = null;
+        timeLeft = mode === 'work' ? WORK_TIME : BREAK_TIME;
+        lastCupNum = 0;
+        cupImg.src = mode === 'work' ? './assets/cup1.svg' : './assets/cup5.svg';
+        updateDisplay();
     }
 
-    running = false;
-    toggleBtn.src = './assets/play.svg';
-  }
 
-  toggleBtn.addEventListener('click', () => {
-    running ? pauseTimer() : startTimer();
-  });
+    function startTimer() {
+        if (interval) return;
 
-  resetBtn.addEventListener('click', resetTimer);
+        interval = setInterval(() => {
+        if (timeLeft > 0) {
+            timeLeft--;
+            updateDisplay();
+            updateCupImage();
+        } else {
+            clearInterval(interval!);
+            interval = null;
+            running = false;
+            toggleBtn.src = './assets/play.svg';
+
+            if (mode === 'work') {
+            // Transition to break
+                mode = 'break';
+                timeLeft = BREAK_TIME;
+                document.body.style.backgroundColor = '#A8E6A3';
+                cupImg.src = './assets/cup5.svg';
+                updateDisplay();
+                startTimer();
+            } else {
+                // Transition back to work
+                mode = 'work';
+                timeLeft = WORK_TIME;
+                document.body.style.backgroundColor = '#639274';
+
+                lastCupNum = 0;
+                refillCupAnimation();
+                updateDisplay();
+                startTimer();
+            }
+        }
+        }, 1000);
+
+        running = true;
+        toggleBtn.src = './assets/pause.svg';
+    }
+
+    function pauseTimer() {
+        if (interval) {
+        clearInterval(interval);
+        interval = null;
+        }
+
+        running = false;
+        toggleBtn.src = './assets/play.svg';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        running ? pauseTimer() : startTimer();
+    });
+
+    resetBtn.addEventListener('click', resetTimer);
 
   updateDisplay();
 });
