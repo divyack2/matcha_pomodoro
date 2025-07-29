@@ -28,6 +28,25 @@
 
 import './index.css';
 
+// Import assets with cleaner object mapping
+const assets = {
+  cup1: new URL('../assets/cup1.svg', import.meta.url).href,
+  cup1Alt: new URL('../assets/cup1-alt.svg', import.meta.url).href,
+  cup2: new URL('../assets/cup2.svg', import.meta.url).href,
+  cup2Alt: new URL('../assets/cup2-alt.svg', import.meta.url).href,
+  cup3: new URL('../assets/cup3.svg', import.meta.url).href,
+  cup3Alt: new URL('../assets/cup3-alt.svg', import.meta.url).href,
+  cup4: new URL('../assets/cup4.svg', import.meta.url).href,
+  cup4Alt: new URL('../assets/cup4-alt.svg', import.meta.url).href,
+  cup5: new URL('../assets/cup5.svg', import.meta.url).href,
+  cup5Alt: new URL('../assets/cup5-alt.svg', import.meta.url).href,
+  play: new URL('../assets/play.svg', import.meta.url).href,
+  pause: new URL('../assets/pause.svg', import.meta.url).href,
+  reset: new URL('../assets/reset.svg', import.meta.url).href,
+} as const;
+
+type AssetKey = keyof typeof assets;
+
 document.addEventListener('DOMContentLoaded', () => {
     type Mode = 'work' | 'break';
     let mode: Mode = 'work';
@@ -53,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         idleCupInterval = setInterval(() => {
             const suffix = isAlt ? '-alt' : '';
-            cupImg.src = `./assets/cup${cupNum}${suffix}.svg`;
+            cupImg.src = suffix ? assets[`cup${cupNum}Alt` as AssetKey] : assets[`cup${cupNum}` as AssetKey];
             isAlt = !isAlt;
         }, 1750);
     }
@@ -83,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const cupNum = cupFrames[i];
-            cupImg.src = `./assets/cup${cupNum}.svg`;
+            cupImg.src = assets[`cup${cupNum}` as AssetKey];
             lastCupNum = cupNum;
 
             setTimeout(nextFrame, delays[i]);
@@ -102,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cupNum = Math.min(phase, 4);
 
         if (cupNum !== lastCupNum) {
-            cupImg.src = `./assets/cup${cupNum}.svg`;
+            cupImg.src = assets[`cup${cupNum}` as AssetKey];
             lastCupNum = cupNum;
             startCupIdleAnimation(cupNum);
         }
@@ -121,11 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         running = false;
-        toggleBtn.src = './assets/play.svg';
+        toggleBtn.src = assets.play;
 
         timeLeft = mode === 'work' ? WORK_TIME : BREAK_TIME;
         lastCupNum = 0;
-        cupImg.src = mode === 'work' ? './assets/cup1.svg' : './assets/cup5.svg';
+        cupImg.src = mode === 'work' ? assets.cup1 : assets.cup5;
         updateDisplay();
     }
 
@@ -142,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(interval!);
             interval = null;
             running = false;
-            toggleBtn.src = './assets/play.svg';
+            toggleBtn.src = assets.play;
 
             if (mode === 'work') {
             // Transition to break
@@ -150,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 timeLeft = BREAK_TIME;
                 document.body.style.backgroundColor = '#98CD95';
                 stopCupIdleAnimation();
-                cupImg.src = './assets/cup5.svg';
+                cupImg.src = assets.cup5;
                 updateDisplay();
                 startTimer();
             } else {
@@ -170,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
 
         running = true;
-        toggleBtn.src = './assets/pause.svg';
+        toggleBtn.src = assets.pause;
     }
 
     function pauseTimer() {
@@ -180,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         running = false;
-        toggleBtn.src = './assets/play.svg';
+        toggleBtn.src = assets.play;
     }
 
     toggleBtn.addEventListener('click', () => {

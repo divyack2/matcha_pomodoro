@@ -15,12 +15,15 @@
       "package.json"
     ],
     "mac": {
+      "target": ["dmg", "zip"],
       "icon": "build/icons/icon.icns"
     },
     "win": {
+      "target": ["nsis", "zip"],
       "icon": "build/icons/icon.ico"
     },
     "linux": {
+      "target": ["AppImage", "deb"],
       "icon": "build/icons/icon.png"
     }
   },
@@ -30,8 +33,10 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx .",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "pack": "electron-builder --dir"
   },
+  "postinstall": "electron-builder install-app-deps",
   "keywords": [],
   "author": {
     "name": "divyack2",
@@ -57,6 +62,7 @@
     "@electron-forge/plugin-fuses": "^7.8.1",
     "@electron-forge/plugin-vite": "^7.8.1",
     "@electron/fuses": "^1.8.0",
+    "@types/electron-squirrel-startup": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "electron": "36.2.0",
