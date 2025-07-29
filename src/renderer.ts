@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let mode: Mode = 'work';
 
     const WORK_TIME = 25 * 60;     // 25 minutes
-    const BREAK_TIME = 5* 60;     // 5 minutes
+    const BREAK_TIME = 5 * 60;     // 5 minutes
 
     let timeLeft = WORK_TIME;
     let interval: NodeJS.Timeout | null = null;
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 lastCupNum = 0;
                 updateDisplay();
-                
+
                 refillCupAnimation(() => {
                     startTimer(); // start only after refill finishes
                 });

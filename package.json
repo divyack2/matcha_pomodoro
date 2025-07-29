@@ -2,14 +2,35 @@
   "name": "pomodoro",
   "productName": "pomodoro",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "A cute matcha-themed pomodoro timer!",
   "main": ".vite/build/main.js",
+  "build": {
+    "appId": "com.divyack2.matcha-pomodoro",
+    "productName": "MatchaPomodoro",
+    "files": [
+      "assets/**/*",
+      "src/**/*",
+      ".vite/**/*",
+      "index.html",
+      "package.json"
+    ],
+    "mac": {
+      "icon": "build/icons/icon.icns"
+    },
+    "win": {
+      "icon": "build/icons/icon.ico"
+    },
+    "linux": {
+      "icon": "build/icons/icon.png"
+    }
+  },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --ext .ts,.tsx .",
+    "dist": "electron-builder"
   },
   "keywords": [],
   "author": {
@@ -39,6 +60,7 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "electron": "36.2.0",
+    "electron-builder": "^26.0.12",
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.0",
     "ts-node": "^10.0.0",
