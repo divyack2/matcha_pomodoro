@@ -18,8 +18,10 @@ const createWindow = () => {
     frame: false,
     titleBarStyle: 'hiddenInset',
     trafficLightPosition: { x: -100, y: -100 },
+    icon: path.join(__dirname, '..', 'build', 'icons', 'icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      webSecurity: false,
     },
   });
 
@@ -27,15 +29,15 @@ const createWindow = () => {
   mainWindow.setAlwaysOnTop(true, 'screen-saver');
   mainWindow.setVisibleOnAllWorkspaces(true);
 
-  // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
   } else {
-    mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
+    mainWindow.loadFile(path.join(__dirname, '..', 'renderer', 'main_window', 'index.html'));
   }
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools({ mode: 'detach' });
 };
 
 ipcMain.on('minimize-window', () => {

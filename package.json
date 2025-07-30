@@ -6,7 +6,7 @@
   "main": ".vite/build/main.js",
   "build": {
     "appId": "com.divyack2.matcha-pomodoro",
-    "productName": "MatchaPomodoro",
+    "productName": "Matcha Pomodoro",
     "files": [
       "assets/**/*",
       "src/**/*",
@@ -33,8 +33,8 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx .",
-    "dist": "electron-builder",
-    "pack": "electron-builder --dir"
+    "build-renderer": "electron-forge package",
+    "dist": "pnpm build-renderer && electron-builder"
   },
   "postinstall": "electron-builder install-app-deps",
   "keywords": [],
