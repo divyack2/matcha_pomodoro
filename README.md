@@ -1,23 +1,10 @@
-<!-- # 🍵 Matcha Pomodoro -->
+# 🍵 Matcha Pomodoro
 
-<!-- **Matcha Pomodoro** is a minimalist, matcha-themed desktop [Pomodoro timer](https://en.wikipedia.org/wiki/Pomodoro_Technique) (25 minutes of work, 5 minutes of break) built with [Electron](https://www.electronjs.org/) and [Vite](https://vitejs.dev/). It stays as an always-on-top window and has relaxing visuals to help you stay focused during your work sessions!
+**Matcha Pomodoro** is a minimalist, matcha-themed desktop [Pomodoro timer](https://en.wikipedia.org/wiki/Pomodoro_Technique) (25 minutes of work, 5 minutes of break) built with [Electron](https://www.electronjs.org/) and [Vite](https://vitejs.dev/). It stays as an always-on-top window and has relaxing visuals to help you stay focused during your work sessions!
 
 <p align="center">
   <img src="./assets/pomodoro_screenshot.png" width="200" alt="Matcha Pomodoro Timer Screenshot"/>
-</p> -->
-
-<table>
-  <tr>
-    <td width="60%">
-      <h1>🍵 Matcha Pomodoro</h1>
-      <p><strong>Matcha Pomodoro</strong> is a minimalist, matcha-themed desktop <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Pomodoro timer</a> (25 minutes of work, 5 minutes of break) built with <a href="https://www.electronjs.org/">Electron</a> and <a href="https://vitejs.dev/">Vite</a>.</p>
-      <p>It stays as an always-on-top window and has relaxing visuals to help you stay focused during your work sessions!</p>
-    </td>
-    <td>
-      <img src="./assets/pomodoro_screenshot.png" width="200" alt="Matcha Pomodoro screenshot">
-    </td>
-  </tr>
-</table>
+</p>
 
 ---
 
